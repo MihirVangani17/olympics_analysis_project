@@ -11,12 +11,12 @@
 
         <!-- Navigation bar -->
         <nav>
-            <img height="50px" width="100px" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
+            <img height="50px" width="" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
             <ul  class="navbar">
                 <li><a  class="active" href="/">Home</a></li>
                 <li><a href="http://localhost:8501/" target="_blank">Analysis</a></li>
-                <li><a href="/prediction">Prediction</a></li>
-                <li><a href="/baytickets">Bay Ticket</a></li>
+                
+                <li><a href="/baytickets">Buy Ticket</a></li>
                 <li><a href="/forum">Forum</a></li>
             </ul>
         </nav>
@@ -24,8 +24,29 @@
         <!-- Top Athletes Slider -->
         <div class="torch">
             <img width="200px" height="400px" src="{{ url_for('static', filename='img/torch.png') }}">
-            <p>The Olympic Games are the world's only truly global, multi-sport, celebratory athletics competition. With more than 200 countries participating in over 400 events across the Summer and Winter Games, the Olympics are where the world comes to compete, feel inspired, and be together.</p>
-        </div>   
+            <div class="table-container">
+                <table>
+                    <caption class="heading">Olympics 2024</caption>
+                    <tr>
+                        <th>Location</th>
+                        <th>Events</th>
+                        <th>Countries</th>
+                    </tr>
+                    <tr>
+                        <td>Paris</td>
+                        <td>329</td>
+                        <td>204</td>
+                    </tr>
+                    <tr>
+                        <th>Athletes</th>
+                        <th>Date</th>
+                    </tr>
+                    <tr>
+                        <td>10,005</td>
+                        <td>26 July 2024</td>
+                    </tr>
+                </table>
+            </div>
 
         <!-- Slider Scroll -->
         <div class="mediaScroll">

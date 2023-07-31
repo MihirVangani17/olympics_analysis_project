@@ -42,6 +42,44 @@ nav ul li a.active
     background-color: white;
     justify-content: space-between;
     background: linear-gradient(#c2c2fc,#fdfdfe);
-}  
+}
+.table-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+caption {
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+
+th, td {
+    font-size: 30px;
+    font-weight: lighter;
+    padding: 25px;
+    text-align: center;
+    white-space: 50px;
+    /* border: 1px solid #ccc; */
+}
+td{
+    font-weight: bold;
+}
+/* th {
+    background-color: #f2f2f2;
+} */
+
+tr:nth-child(even) {
+    background-color: #c2c2fc;
+}
+
+
+
     
     
