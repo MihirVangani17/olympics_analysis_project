@@ -6,7 +6,7 @@ app = Flask(__name__)
 # MySQL configuration
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Saransh' 
+app.config['MYSQL_PASSWORD'] = 'ProjectGFG' 
 app.config['MYSQL_DB'] = 'flask_app'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -53,21 +53,33 @@ def baytickets():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        return redirect(url_for('book_ticket'))  # Redirect to index if already logged in
+
     if request.method == 'POST':
-        # Process login form data and check credentials from the database
         username = request.form['username']
         password = request.form['password']
 
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
-        user = cur.fetchone()
-        cur.close()
+        connection = mysql.connection
+        cursor = connection.cursor()
+
+        # Check if the credentials match in the database
+        cursor.execute("SELECT id FROM users WHERE username = %s AND password = %s",
+                       (username, password))
+        user = cursor.fetchone()
+
+        cursor.close()
+        connection.close()
 
         if user:
-            session['username'] = user['username']
-            return redirect(url_for('baytickets'))
+            # Store the user ID in the session for future authentication
+            session['user_id'] = user[0]
+            return redirect(url_for('baytickets'))  # Redirect to index page after login
+        else:
+            return "Login failed. Invalid username or password."
 
     return render_template('login.html')
+
 
 # Create a route for user signup
 @app.route('/signup', methods=['GET', 'POST'])
@@ -181,6 +193,48 @@ def add_thread():
 
     # If accessed directly, redirect back to the thread.html page (or you can render the template here)
     return redirect(url_for('thread'))
+
+@app.route('/book_ticket', methods=['POST'])
+def book_ticket():
+    if request.method == 'POST':
+        # Process ticket booking form data and store in database
+        first_name = request.form['first_name']
+        seat_number = int(request.form['seat_number'])
+
+        cur = mysql.connection.cursor()
+
+        # Check if the selected seat is available
+        cur.execute('SELECT seat_status FROM available_seats WHERE seat_number = %s', (seat_number,))
+        result = cur.fetchone()
+
+        if result and result['seat_status'] == 'available':
+            # Insert booked ticket into booked_tickets table
+            cur.execute('INSERT INTO booked_tickets (name, seat_number) VALUES (%s, %s)', (first_name, seat_number))
+
+            # Update seat status to 'notavailable' in available_seats table
+            cur.execute('UPDATE available_seats SET seat_status = %s WHERE seat_number = %s', ('notavailable', seat_number))
+
+            mysql.connection.commit()
+            cur.close()
+
+    return redirect(url_for('book_tickets'))
+
+
+@app.route('/my_tickets')
+def my_tickets():
+    if 'username' in session:
+        # Fetch booked tickets for the current user (you need to implement user authentication to fetch user-specific tickets)
+        # For simplicity, let's assume the user is "User123" with id=1 (replace this with actual user authentication)
+        user_id = 1
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM booked_tickets WHERE user_id = %s', (user_id,))
+        booked_tickets = cur.fetchall()
+        cur.close()
+
+        return render_template('mytickets.html', booked_tickets=booked_tickets)
+
+    # If user is not logged in, redirect to login page
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
