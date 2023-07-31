@@ -76,9 +76,10 @@
     <div>
         <!-- Navigation bar -->
         <nav>
-           <img height="50px" width="100px" class="pic" src="olympic_logo.jpg">
+            <img height="50px" width="100px" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
            <ul  class="navbar">
-               <li><a href="/lander_page">Home</a></li>
+           <ul  class="navbar">
+               <li><a href="/">Home</a></li>
                <li><a href="/analysis">Analysis</a></li>
                <li><a href="/prediction">Prediction</a></li>
                <li><a  class="active" href="/baytickets">Bay Ticket</a></li>

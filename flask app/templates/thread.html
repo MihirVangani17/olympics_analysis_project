@@ -1,17 +1,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="forum.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/thread.css') }}">
     <title>Add Comment</title>
 </head>
 <body>
+    <nav>
+        <img height="50px" width="100px" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
+        <ul  class="navbar">
+            <li><a  class="active" href="/">Home</a></li>
+            <li><a href="/analysis">Analysis</a></li>
+            <li><a href="/prediction">Prediction</a></li>
+            <li><a href="/baytickets">Bay Ticket</a></li>
+            <li><a href="/forum">Forum</a></li>
+        </ul>
+    </nav>
     <div class="top-bar">
         <h3>
             Add Comment
         </h3>
     </div>
     <div class="main">
-        <form method="post" action="/forum">
+        <form method="post" action="/add_thread">  <!-- Change 'action' to the appropriate route -->
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title"><br>
             <label for="description">Description:</label><br>

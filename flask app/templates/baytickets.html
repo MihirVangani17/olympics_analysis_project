@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="baytickets.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/baytickets.css') }}">
     <title>Document</title>
 </head>
 <body>
     <div>
          <!-- Navigation bar -->
          <nav>
-            <img height="50px" width="100px" class="pic" src="olympic_logo.jpg">
+            <img height="50px" width="100px" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
             <ul  class="navbar">
-                <li><a href="/lander_page">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/analysis">Analysis</a></li>
                 <li><a href="/prediction">Prediction</a></li>
                 <li><a  class="active" href="/baytickets">Bay Ticket</a></li>
@@ -22,7 +22,7 @@
     </div>
     <div class="seat">
         <div class="image">
-            <img src="seats.png" alt="sitting arrangement" height="300px" width="400px">
+            <img src="{{ url_for('static', filename='img/seats.png') }}" alt="sitting arrangement" height="300px" width="400px">
         </div>
         <div class="button">
             <button><a href="/signup">Signup</a></button>

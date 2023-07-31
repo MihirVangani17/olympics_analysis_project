@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="prediction.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lander_page.css') }}">
     <title>Document</title>
 </head>
 <body>
     <div>
          <!-- Navigation bar -->
          <nav>
-            <img height="50px" width="100px" class="pic" src="olympic_logo.jpg">
+            <img height="50px" width="100px" src="{{ url_for('static', filename='img/olympic_logo.jpg') }}" alt="olympic_logo">
             <ul  class="navbar">
-                <li><a href="/lander_page">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/analysis">Analysis</a></li>
                 <li><a  class="active" href="/prediction">Prediction</a></li>
                 <li><a href="/baytickets">Bay Ticket</a></li>
