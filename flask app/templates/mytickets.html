@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tickets</title>
 </head>
 <body>
     <h1>My Tickets</h1>
-    <div id="tickets">
-        <!-- The booked tickets will be displayed here dynamically using JavaScript -->
-    </div>
+    {% if booked_tickets %}
+        <table>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Name</th>
+                <th>Seat Number</th>
+            </tr>
+            {% for ticket in booked_tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.name }}</td>
+                    <td>{{ ticket.seat_number }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No tickets booked yet.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('book_tickets') }}">Book More Tickets</a>
 </body>
 </html>

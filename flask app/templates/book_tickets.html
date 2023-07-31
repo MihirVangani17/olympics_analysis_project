@@ -1,40 +1,26 @@
+<!-- book_tickets.html -->
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Booking</title>
+    <title>Book Tickets</title>
 </head>
 <body>
-    <h1>Ticket Booking</h1>
-    <form method="post" action="/book_ticket">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br>
+    <h1>Book Tickets</h1>
+    <form action="{{ url_for('book_tickets') }}" method="post">
+        <label for="first_name">Name:</label>
+        <input type="text" id="first_name" name="first_name" required>
+        <br>
         <label for="seat_number">Select Seat:</label>
         <select id="seat_number" name="seat_number" required>
-            <!-- The options will be populated dynamically using JavaScript -->
-        </select><br>
-        <input type="submit" value="Book Ticket">
+            {% for seat in available_seats %}
+                <option value="{{ seat['seat_number'] }}">{{ seat['seat_number'] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Book Ticket</button>
     </form>
-    <button onclick="redirectToMyTickets()">My Tickets</button>
-
-    <script>
-        // JavaScript to populate seat number dropdown dynamically from available_seats
-        // You may use AJAX to fetch the available seats from the server and populate the dropdown options
-        // For simplicity, let's assume the available seats are already available as an array in the script tag.
-        var availableSeats = [1, 2, 5, 6, 9, 10, 11, 12]; // Replace this with actual data from available_seats table
-
-        var seatDropdown = document.getElementById("seat_number");
-        for (var seat of availableSeats) {
-            var option = document.createElement("option");
-            option.text = seat;
-            option.value = seat;
-            seatDropdown.appendChild(option);
-        }
-
-        function redirectToMyTickets() {
-            window.location.href = "/my_tickets";
-        }
-    </script>
+    <br>
+    <a href="{{ url_for('my_tickets') }}">My Tickets</a>
 </body>
 </html>
